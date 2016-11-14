@@ -5,4 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+ActiveRecord::Base.transaction do
+  AdminUser.roles.each_key do |role|
+    AdminUser.create!(email: "#{role}@example.com", password: "password", password_confirmation: "password", role: role)
+  end
+end
