@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114011709) do
+ActiveRecord::Schema.define(version: 20161114012403) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 20161114011709) do
     t.integer  "role",                   limit: 1, default: 0,  null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "permission_policies", force: :cascade do |t|
+    t.integer "resource_id",                       null: false
+    t.integer "role",        limit: 1, default: 0, null: false
+    t.integer "ability",     limit: 1, default: 0, null: false
+    t.index ["resource_id", "role"], name: "index_permission_policies_on_resource_id_and_role", unique: true
   end
 
   create_table "permission_resources", force: :cascade do |t|
